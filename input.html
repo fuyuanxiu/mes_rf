@@ -214,6 +214,7 @@
 				var url = API.webPath + '/getExcProc?functionName=' + api_localStorageGet("functionName") +
 					'&fileName=' + fileName + '&pmachtype=&fileValue=' +  encodeURIComponent(fileValue)+'&outFiles='+outFiles;
 					console.log(url)
+					console.log(stype)
 				mui.ajax(url, {
 						data: {},
 						dataType: 'json',
