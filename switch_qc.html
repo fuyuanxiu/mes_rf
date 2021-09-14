@@ -232,9 +232,11 @@
 						//console.log(JSON.stringify(data))
 						document.getElementById('position').value='';
 						document.getElementById('barcode').value='';
-						document.getElementById('position').focus();
-						var param = "换料QC核对[FILED1[" + api_localStorageGet("name")
-						getData(param,"name");
+						
+						var line=document.getElementById('line').value
+						var param = "换料QC核对[FILED2[" + api_localStorageGet("name")+"["+line
+						getData(param,"line");
+						document.getElementById('position').focus()
 					} else {
 						document.getElementById('barcode').value='';
 						plus.ui.toast(data.msg);

@@ -214,7 +214,6 @@
 				var url = API.webPath + '/getExcProc?functionName=' + api_localStorageGet("functionName") +
 					'&fileName=' + fileName + '&pmachtype=&fileValue=' +  encodeURIComponent(fileValue)+'&outFiles='+outFiles;
 					console.log(url)
-					console.log(stype)
 				mui.ajax(url, {
 						data: {},
 						dataType: 'json',
@@ -231,7 +230,14 @@
 									for(var i = 0; i < data.data.length; i++){
 										var t = data.data[i];
 										if(document.getElementById(t[0])){
-											document.getElementById(t[0]).value = t[1];
+											//document.getElementById(t[0]).value = t[1];
+											//20200420-fyx,如果返回值包括{则是下拉框类型
+											if(t[1].indexOf("{") == -1){
+												document.getElementById(t[0]).value = t[1];
+											}else{
+												var a = t[1].split('{')
+												setSelect(a,t[0])
+											}
 										}
 								
 									}
@@ -323,6 +329,20 @@
 			fileValue = fileValue.substring(0, fileValue.length - 1);
 			getExcProc(fileId, fileValue,a[1],'proc');
 		}
+		
+		//20200420-fyx
+		   function setSelect(t,fileName){
+		    console.log("t:"+t)
+		    var commHtml = "<option value=''>请点击选择</option>"
+		    for(var i in t){
+		     if(t[i].length>0){
+		      commHtml += "<option value='"+t[i]+"'>"+t[i]+"</option>";
+		     }
+		     
+		    }
+		    document.getElementById('select-'+fileName).innerHTML = commHtml;
+		   }
+		
 		//退出按钮
 		function tuichuBtn(){
 			mui("#tuichu").on("tap", "a", function() {
